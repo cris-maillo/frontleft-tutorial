@@ -1,21 +1,23 @@
 # front left
 
-A little screen that shows upcoming gigs for the artists you follow.
+> front left is the dancefloor's universal meeting spot. if you know you know.
 
-Python scripts collect events from [Resident Advisor](https://ra.co) and from photos of posters, then write them to `events.json`. A GitHub Action re-runs them every day and commits the result. A [Cheap Yellow Display](https://github.com/witnessmenow/ESP32-Cheap-Yellow-Display) (CYD) fetches that file from `raw.githubusercontent.com` every hour and draws the list.
+Front left is a little physical screen showing upcoming events you are interested in!
+
+It fetches events from any artist on [Resident Advisor](https://ra.co) and from photos of posters, which are parsed by Claude to extract key information. Posters can either be uploaded manually or sent via an Apple Shortcuts flow.
+
+A [Cheap Yellow Display](https://github.com/witnessmenow/ESP32-Cheap-Yellow-Display) (CYD) is used to display upcoming events and I've also included a 3d-printable case (see [Print a case](#7-print-a-case-optional)).
+
+*Photo coming soon.*
+
+No server needed: a GitHub Action re-runs the scripts every day and commits events.json to the repo, and the CYD reads it from raw.githubusercontent.com.
 
 ```
- RA (artists you follow) ─┐
+ RA (artists you choose) ─┐
                           ├─► events.json ─► GitHub ─► raw.githubusercontent.com ─► CYD
  poster photos (inbox/) ──┘        ▲
                                    └── manual_events.json
 ```
-
-No server needed: GitHub stores the file, runs the scripts and hosts the URL.
-
-There's also a 3D-printable case for the display (see [Print a case](#7-print-a-case-optional)).
-
-*Photo coming soon.*
 
 ## What's in the repo
 
