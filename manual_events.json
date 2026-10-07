@@ -1,0 +1,47 @@
+[
+  {
+    "when": "2026-09-20",
+    "until": "2026-11-15",
+    "what": "TEST Ongoing Exhibition: Soft Machines",
+    "who": "Test Artist",
+    "where": "Test Gallery",
+    "src": "poster"
+  },
+  {
+    "when": "2026-10-07",
+    "what": "TEST Tonight Only",
+    "who": "Test DJ",
+    "where": "Test Club",
+    "src": "poster"
+  },
+  {
+    "when": "2026-10-10",
+    "until": "2026-10-12",
+    "what": "TEST Weekend Festival",
+    "who": "Test Band, Another Test Band",
+    "where": "Test Park",
+    "src": "poster"
+  },
+  {
+    "when": "2026-10-24",
+    "what": "TEST Same Night As An RA Event",
+    "who": "Test Live Act",
+    "where": "Test Warehouse",
+    "src": "poster"
+  },
+  {
+    "when": "2026-11-05",
+    "until": "2026-12-20",
+    "what": "TEST Six-Week Residency With A Deliberately Very Long Title To See How The Display Handles Wrapping And Truncation",
+    "who": "Test Collective, Test Ensemble, Test Orchestra, Test Soloist",
+    "where": "Test Very Long Venue Name Arts Centre",
+    "src": "poster"
+  },
+  {
+    "when": "2026-12-31",
+    "what": "TEST New Year's Eve",
+    "who": "Test Headliner",
+    "where": "Test Hall",
+    "src": "poster"
+  }
+]

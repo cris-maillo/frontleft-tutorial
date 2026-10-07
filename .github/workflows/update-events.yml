@@ -1,0 +1,51 @@
+name: Update events
+
+on:
+  schedule:
+    - cron: "0 6 * * *"   # daily at 06:00 UTC
+  push:
+    paths:
+      - "inbox/**"         # new poster images
+      - "manual_events.json"
+  workflow_dispatch:       # "Run workflow" button in the Actions tab
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-events
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    env:
+      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - run: pip install -r requirements.txt
+
+      - name: Parse posters in inbox/
+        if: ${{ env.ANTHROPIC_API_KEY != '' }}   # skipped if you haven't added the secret
+        run: python parse_inbox.py
+
+      - name: Fetch RA events
+        # If RA is unreachable, keep going so poster events still get published.
+        continue-on-error: true
+        run: python fetch_ra.py
+
+      - name: Commit changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A events.json manual_events.json inbox/
+          git diff --cached --quiet && exit 0
+          git commit -m "Update events"
+          # Another upload may have landed while this ran
+          git pull --rebase
+          git push

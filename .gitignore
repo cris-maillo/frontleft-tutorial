@@ -1,0 +1,7 @@
+# Wi-Fi credentials and tokens for the display
+display/secrets.h
+
+.DS_Store
+__pycache__/
+.venv/
+.env
