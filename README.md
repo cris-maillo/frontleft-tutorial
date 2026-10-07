@@ -269,7 +269,7 @@ The `case/` folder has a two-part case for the CYD, ready to print:
 | File | Part | Size (W × H × D) |
 |---|---|---|
 | `case/front.stl` | Front shell. Holds the board, with a window for the screen. | 104.7 × 58.6 × 13.8 mm |
-| `case/back.stl` | Flat back panel. | 104.7 × 58.6 × 4.0 mm |
+| `case/back.stl` | Back panel, recessed on the outside for adhesive wall strips. | 104.7 × 58.6 × 4.0 mm |
 
 The board sits in the front shell, and the back panel screws onto it.
 
@@ -279,6 +279,8 @@ You'll need:
 - **M2 × 12 mm screws**, one for each insert. I used [these](https://www.amazon.co.uk/dp/B0F38BHHJN).
 
 Heat-set inserts are small brass sleeves with a screw thread inside. You put one on the tip of a soldering iron and gently press it into a screw hole in the print. The plastic melts around it and sets as it cools, leaving a solid metal thread. Press slowly and keep the insert straight.
+
+The back panel is recessed on the outside for adhesive strips like [3M Command strips](https://www.command.com/), so you can stick the screen to a wall without drilling.
 
 ---
 
