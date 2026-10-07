@@ -13,6 +13,10 @@ Python scripts collect events from [Resident Advisor](https://ra.co) and from ph
 
 No server needed: GitHub stores the file, runs the scripts and hosts the URL.
 
+There's also a 3D-printable case for the display (see [Print a case](#7-print-a-case-optional)).
+
+*Photo coming soon.*
+
 ## What's in the repo
 
 | File | What it does |
@@ -26,6 +30,7 @@ No server needed: GitHub stores the file, runs the scripts and hosts the URL.
 | `.github/workflows/update-events.yml` | Runs the scripts daily (and whenever you push to `inbox/`), then commits `events.json`. |
 | `display/display.ino` | Arduino sketch for the CYD. |
 | `display/secrets.example.h` | Template for your Wi-Fi details and the `events.json` URL. |
+| `case/front.stl`, `case/back.stl` | 3D-printable case for the CYD. |
 
 ---
 
@@ -176,7 +181,18 @@ Open it in a browser to check it. GitHub caches raw files for a few minutes, so 
 
 ### Hardware
 
-An **ESP32-2432S028R**, usually sold as the "Cheap Yellow Display": a 2.8" 240×320 screen with a built-in ESP32. You'll also need a USB cable that carries data.
+An **ESP32-2432S028R**, usually sold as the "Cheap Yellow Display": a 2.8" 240×320 screen with a built-in ESP32. You'll also need a USB cable that carries data. Some cheap cables only carry power, and with those the board lights up but your computer never sees it.
+
+#### You may need a dongle
+
+Look at which USB port your board has:
+
+- **Micro-USB only** (the original CYD): use a USB-A to micro-USB cable. If your laptop only has USB-C ports, use a USB-C to micro-USB cable, or a USB-C to USB-A adapter with a normal micro-USB cable.
+- **USB-C** (newer boards, often with a micro-USB port as well): a USB-C to USB-C cable often **won't work**. The board gets no power and no port shows up. Use a **USB-A to USB-C** cable instead. If your laptop only has USB-C ports, plug that cable into a **USB-C to USB-A adapter (dongle)**.
+
+Why a USB-C cable doesn't work: a USB-C port doesn't send power down the cable straight away. It waits until it sees a small resistor (5.1kΩ) on the device's "CC" pins, which is how a USB-C device says "something is connected, power me". Many CYDs leave those two resistors off to save a few cents. A USB-C laptop or charger then thinks nothing is plugged in and never turns the power on.
+
+USB-A works differently. A USB-A port always puts out 5V, with no handshake. A USB-A to USB-C cable also has the right resistor built in at its own end. Going through a USB-A port, or a dongle that provides one, skips the check the board can't pass.
 
 ### Software
 
@@ -244,6 +260,24 @@ Fill in `display/secrets.h`:
 
 The display fetches on boot and then every hour. To change the title or refresh rate, edit `TITLE` and `REFRESH_MS` at the top of the sketch. `WHO_MAX_LINES`, `WHAT_MAX_LINES` and `WHERE_MAX_LINES` set how many lines each field can use before it's cut off with `...`. Events that don't fit on screen are counted in a `+N more` footer.
 
+## 7. Print a case (optional)
+
+The `case/` folder has a two-part case for the CYD, ready to print:
+
+| File | Part | Size (W × H × D) |
+|---|---|---|
+| `case/front.stl` | Front shell. Holds the board, with a window for the screen. | 104.7 × 58.6 × 13.8 mm |
+| `case/back.stl` | Flat back panel. | 104.7 × 58.6 × 4.0 mm |
+
+The board sits in the front shell, and the back panel screws onto it.
+
+You'll need:
+
+- **M2 heat-set threaded inserts**, one for each screw hole in the front shell. I used [these](https://www.amazon.co.uk/dp/B0FLJVYGHS).
+- **M2 × 12 mm screws**, one for each insert. I used [these](https://www.amazon.co.uk/dp/B0F38BHHJN).
+
+Heat-set inserts are small brass sleeves with a screw thread inside. You put one on the tip of a soldering iron and gently press it into a screw hole in the print. The plastic melts around it and sets as it cools, leaving a solid metal thread. Press slowly and keep the insert straight.
+
 ---
 
 ## The `events.json` format
@@ -275,6 +309,7 @@ This is the only thing the display depends on. You can swap out the Python side 
 | Problem | Try |
 |---|---|
 | Screen says **Fetch failed** | Check the Serial Monitor. `404` means the URL is wrong, or the repo is private and has no token. `401` means the token is wrong. |
+| Board doesn't power on, or no port shows up in the Arduino IDE | If it's a USB-C board on a USB-C to USB-C cable, switch to a USB-A to USB-C cable, with a dongle if needed (see [You may need a dongle](#you-may-need-a-dongle)). Otherwise, try a different cable: it may be power-only. |
 | Screen stays black | Check `User_Setup.h`: the backlight (`TFT_BL 21`) or the wrong driver for your board. |
 | Board never connects | Wi-Fi details are wrong, or the network is 5 GHz only. |
 | Workflow fails at **Commit changes** with a 403 | Turn on **Read and write permissions** (step 5). |
