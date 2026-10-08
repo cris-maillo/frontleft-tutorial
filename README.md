@@ -8,7 +8,7 @@ It fetches events from any artist on [Resident Advisor](https://ra.co) and from 
 
 A [Cheap Yellow Display](https://github.com/witnessmenow/ESP32-Cheap-Yellow-Display) (CYD) is used to display upcoming events and I've also included a 3d-printable case (see [Print a case](#7-print-a-case-optional)).
 
-*Photo coming soon.*
+![front left on a Cheap Yellow Display](frontleft-horizontal.jpg)
 
 No server needed: a GitHub Action re-runs the scripts every day and commits events.json to the repo, and the CYD reads it from raw.githubusercontent.com.
 
